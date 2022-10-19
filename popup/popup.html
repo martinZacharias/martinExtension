@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Martins Utility Dashboard</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Martins Utility Dashboard</title>
-</head>
-
-<body>
-    <button id="addNewPage">Add current page</button>
-    <a href="../options/options.html" target="_blank">Options</a>
-    <script src="popup.js"></script>
-</body>
-
+	<body>
+		<form method="dialog" autocomplete="off">
+			<label for="title">Title:</label>
+			<input type="text" name="title" id="title" />
+			<label for="url">URL:</label>
+			<input type="url" name="url" id="url" />
+			<label for="favIconUrl">Thumbnail:</label>
+			<input type="url" name="favIconUrl" id="favIconUrl" />
+			<input type="submit" value="Save to NewTab" />
+		</form>
+		<a href="../options/options.html" target="_blank">Options</a>
+		<script src="popup.js" type="module"></script>
+	</body>
 </html>
