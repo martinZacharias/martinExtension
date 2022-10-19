@@ -1,14 +1,16 @@
-// add context menu entries
-chrome.contextMenus.create({
-	id: "saveFile",
-	title: "Save",
-	contexts: ["image", "video", "audio"],
-});
+// add context menu entries on install
+chrome.runtime.onInstalled.addListener(() => {
+	chrome.contextMenus.create({
+		id: "saveFile",
+		title: "Save",
+		contexts: ["image", "video", "audio"],
+	});
 
-chrome.contextMenus.create({
-	id: "toggleDesignMode",
-	title: "Design mode",
-	contexts: ["page", "editable"],
+	chrome.contextMenus.create({
+		id: "toggleDesignMode",
+		title: "Design mode",
+		contexts: ["page", "editable"],
+	});
 });
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
