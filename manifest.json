@@ -27,6 +27,6 @@
 	"chrome_url_overrides": {
 		"newtab": "newTab/newTab.html"
 	},
-	"permissions": ["storage", "activeTab", "downloads", "downloads.shelf", "contextMenus"],
+	"permissions": ["storage", "activeTab", "downloads", "downloads.shelf", "contextMenus", "scripting"],
 	"options_page": "options/options.html"
 }
