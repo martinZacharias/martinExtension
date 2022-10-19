@@ -1,0 +1,40 @@
+body{
+    background-color: #9d186c;
+    color: white;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.item {
+    border: 1px cadetblue solid;
+    margin: 12px;
+    width: 128px;
+    height: 128px;
+}
+
+.thumbnail {
+    height: 128px;
+}
+
+a{
+    color: white;
+}
+
+form{
+    display: grid;
+}
+
+form input{
+    margin-bottom: 1em;
+}

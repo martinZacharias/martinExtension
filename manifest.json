@@ -1,0 +1,32 @@
+{
+	"manifest_version": 3,
+	"name": "Martins Utility Extension",
+	"version": "1.0",
+	"description": "just a bunch of random utilities",
+	"author": "martinZacharias",
+
+	"background": {
+		"service_worker": "background.js",
+		"type": "module"
+	},
+
+	"icons": {
+		"16": "icons/icon-16.png",
+		"64": "icons/icon-64.png",
+		"128": "icons/icon-128.png"
+	},
+	"action": {
+		"default_popup": "popup/popup.html",
+		"default_icon": {
+			"16": "icons/icon-16.png",
+			"64": "icons/icon-64.png",
+			"128": "icons/icon-128.png"
+		}
+	},
+
+	"chrome_url_overrides": {
+		"newtab": "newTab/newTab.html"
+	},
+	"permissions": ["storage", "activeTab", "downloads", "downloads.shelf", "contextMenus"],
+	"options_page": "options/options.html"
+}
