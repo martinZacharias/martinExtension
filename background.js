@@ -18,10 +18,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 				if (info.pageUrl === info.srcUrl) {
 					chrome.tabs.remove(tab.id);
 				}
-				setTimeout(() => {
-					chrome.downloads.setShelfEnabled(false);
-					chrome.downloads.setShelfEnabled(true);
-				}, 1000);
 			});
 			break;
 
@@ -40,5 +36,23 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 
 		default:
 			throw `Unknown menuItemId :${info.menuItemId}`;
+	}
+});
+
+// hide download shelf when done
+let activeDownloads = 0;
+chrome.downloads.onCreated.addListener((downloadItem) => {
+	activeDownloads++;
+});
+
+chrome.downloads.onChanged.addListener((downloadDelta) => {
+	if (["complete", "interrupted"].includes(downloadDelta.state?.current)) {
+		activeDownloads--;
+		if (activeDownloads === 0) {
+			setTimeout(() => {
+				chrome.downloads.setShelfEnabled(false);
+				chrome.downloads.setShelfEnabled(true);
+			}, 1000);
+		}
 	}
 });
