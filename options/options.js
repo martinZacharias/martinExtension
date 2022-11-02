@@ -1,11 +1,15 @@
 const storage = chrome.storage.local;
+const options = {};
 
-const syncEnabledCheckbox = document.querySelector("#syncEnabled");
+const optionsForm = document.querySelector("#optionsForm");
 
-storage.get(["syncEnabled"]).then(({ syncEnabled }) => {
-	syncEnabledCheckbox.checked = syncEnabled;
+storage.get(["options"]).then(({ options }) => {
+	const { hideDownloadShelfTime } = options;
+	// default to 1000 if undefined
+	optionsForm.hideDownloadShelfTime.value = hideDownloadShelfTime ?? 1000;
 });
 
-syncEnabledCheckbox.addEventListener("change", (event) => {
-	storage.set({ syncEnabled: syncEnabledCheckbox.checked });
+optionsForm.hideDownloadShelfTime.addEventListener("change", (event) => {
+	options.hideDownloadShelfTime = parseInt(event.target.value);
+	storage.set({ options });
 });

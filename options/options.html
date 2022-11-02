@@ -8,9 +8,10 @@
 	</head>
 
 	<body>
-		<h1>Settings aren't implemented yet!</h1>
-		<label for="syncEnabled">Enable Sync:</label>
-		<input type="checkbox" name="syncEnabled" id="syncEnabled" disabled />
+		<form id="optionsForm" autocomplete="off">
+			<label for="hideDownloadShelfTime">Hide download shelf time (in ms):</label>
+			<input type="number" name="hideDownloadShelfTime" id="hideDownloadShelfTime" min="-1" step="1" />
+		</form>
 		<script src="options.js"></script>
 	</body>
 </html>

@@ -1,3 +1,17 @@
+// load options and set up change listener
+const storage = chrome.storage.local;
+let hideDownloadShelfTime = 1000;
+
+storage.get("options", ({ options }) => {
+	hideDownloadShelfTime = options.hideDownloadShelfTime ?? 1000;
+});
+
+storage.onChanged.addListener((changes, area) => {
+	if (changes.options?.newValue) {
+		hideDownloadShelfTime = changes.options.newValue.hideDownloadShelfTime ?? 1000;
+	}
+});
+
 // add context menu entries on install
 chrome.runtime.onInstalled.addListener(() => {
 	chrome.contextMenus.create({
@@ -44,13 +58,13 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 // hide download shelf when all downloads done
 chrome.downloads.onChanged.addListener((downloadDelta) => {
 	//query active downloads when state changes
-	if (downloadDelta.state) {
+	if (hideDownloadShelfTime >= 0 && downloadDelta.state) {
 		chrome.downloads.search({ state: "in_progress" }, (results) => {
 			if (results.length === 0) {
 				setTimeout(() => {
 					chrome.downloads.setShelfEnabled(false);
 					chrome.downloads.setShelfEnabled(true);
-				}, 1000);
+				}, hideDownloadShelfTime);
 			}
 		});
 	}
