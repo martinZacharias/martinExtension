@@ -41,20 +41,17 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 	}
 });
 
-// hide download shelf when done
-let activeDownloads = 0;
-chrome.downloads.onCreated.addListener((downloadItem) => {
-	activeDownloads++;
-});
-
+// hide download shelf when all downloads done
 chrome.downloads.onChanged.addListener((downloadDelta) => {
-	if (["complete", "interrupted"].includes(downloadDelta.state?.current)) {
-		activeDownloads--;
-		if (activeDownloads === 0) {
-			setTimeout(() => {
-				chrome.downloads.setShelfEnabled(false);
-				chrome.downloads.setShelfEnabled(true);
-			}, 1000);
-		}
+	//query active downloads when state changes
+	if (downloadDelta.state) {
+		chrome.downloads.search({ state: "in_progress" }, (results) => {
+			if (results.length === 0) {
+				setTimeout(() => {
+					chrome.downloads.setShelfEnabled(false);
+					chrome.downloads.setShelfEnabled(true);
+				}, 1000);
+			}
+		});
 	}
 });
