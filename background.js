@@ -3,12 +3,13 @@ const storage = chrome.storage.local;
 let hideDownloadShelfTime = 1000;
 
 storage.get("options", ({ options }) => {
-	hideDownloadShelfTime = options.hideDownloadShelfTime ?? 1000;
+	hideDownloadShelfTime = options?.hideDownloadShelfTime ?? 1000;
 });
 
 storage.onChanged.addListener((changes, area) => {
-	if (changes.options?.newValue) {
-		hideDownloadShelfTime = changes.options.newValue.hideDownloadShelfTime ?? 1000;
+	const newOptions = changes.options?.newValue;
+	if (newOptions) {
+		hideDownloadShelfTime = newOptions.hideDownloadShelfTime ?? 1000;
 	}
 });
 
