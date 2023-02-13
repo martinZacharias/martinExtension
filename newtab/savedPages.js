@@ -7,7 +7,9 @@ const titleInput = document.querySelector("#title");
 const urlInput = document.querySelector("#url");
 const favIconUrlInput = document.querySelector("#favIconUrl");
 const deleteButton = document.querySelector("#deleteItem");
+const closeButton = document.querySelector("#closeDialog");
 
+let deleteConfirmed = false;
 let selectedA = null;
 let pagesVar = [];
 
@@ -75,12 +77,37 @@ dialog.addEventListener("submit", (event) => {
 });
 
 deleteButton.addEventListener("click", (event) => {
-	const index = pagesVar.indexOf(selectedA.page);
-	pagesVar.splice(index, 1);
-	storage.set({ pages: pagesVar });
+	if (deleteConfirmed || event.shiftKey) {
+		const index = pagesVar.indexOf(selectedA.page);
+		pagesVar.splice(index, 1);
+		storage.set({ pages: pagesVar });
+		dialog.close();
+		setConfirm(false);
+	} else {
+		setConfirm(true);
+	}
+});
+
+closeButton.addEventListener("click", (event) => {
 	dialog.close();
 });
 
 dialog.addEventListener("close", (event) => {
 	selectedA = null;
+	setConfirm(false);
+});
+
+function setConfirm(confirm) {
+	deleteConfirmed = confirm;
+	deleteButton.textContent = confirm ? "Confirm" : "Delete";
+}
+
+dialog.addEventListener("click", (event) => {
+	if (
+		event.offsetX < 0 ||
+		event.offsetY < 0 ||
+		event.offsetX > dialog.offsetWidth ||
+		event.offsetY > dialog.offsetHeight
+	)
+		dialog.close();
 });
