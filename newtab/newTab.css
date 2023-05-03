@@ -31,10 +31,21 @@ a{
     color: white;
 }
 
-form{
+form.grid{
     display: grid;
 }
 
-form input{
+form.grid input{
     margin-bottom: 1em;
+}
+
+.fade{
+    transition-delay: 0s;
+    transition-duration: 1250ms;
+    transition-property: opacity;
+    transition-timing-function: linear;
+}
+
+.hidden{
+    opacity: 0;
 }

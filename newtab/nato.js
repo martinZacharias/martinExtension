@@ -5,11 +5,9 @@ const correctWord = alphabet[index];
 
 const footer = document.querySelector("footer");
 
-const DELAY = 1250;
-
 const form = document.createElement("form");
 form.autocomplete = "off";
-form.style = `display:block;transition:visibility 0s ${DELAY}ms, opacity ${DELAY}ms linear`;
+form.className = "fade";
 
 const input = document.createElement("input");
 input.id = "text";
@@ -31,7 +29,6 @@ form.addEventListener("submit", (event) => {
 	input.value = correctWord;
 	form.append(result);
 
-	form.style.visibility = "hidden";
-	form.style.opacity = 0;
-	setTimeout(() => form.remove, DELAY);
+	form.classList.add("hidden");
+	setTimeout(() => form.remove(), 1250);
 });
