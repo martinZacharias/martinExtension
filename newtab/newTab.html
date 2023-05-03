@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Martins New Tab</title>
+		<link rel="stylesheet" href="newTab.css" />
+	</head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Martins New Tab</title>
-	<link rel="stylesheet" href="newTab.css" />
-</head>
-
-<body>
-	<header>
-		<h1>Martins Custom New Tab</h1>
-	</header>
-	<main></main>
-	<dialog>
-		<form method="dialog" autocomplete="off">
-			<label for="title">Title: </label>
-			<input type="text" name="title" id="title" />
-			<label for="url">URL: </label>
-			<input type="url" name="url" id="url" />
-			<label for="favIconUrl">Thumbnail: </label>
-			<input type="url" name="favIconUrl" id="favIconUrl" />
-			<input type="submit" value="Save" />
-		</form>
-		<button id="deleteItem">Delete</button>
-		<button id="closeDialog">Close</button>
-	</dialog>
-	<footer></footer>
-	<script src="newTab.js" type="module"></script>
-</body>
-
+	<body>
+		<header>
+			<h1>Martins Custom New Tab</h1>
+		</header>
+		<main></main>
+		<dialog>
+			<form method="dialog" autocomplete="off">
+				<label for="title">Title: </label>
+				<input type="text" name="title" id="title" />
+				<label for="url">URL: </label>
+				<input type="url" name="url" id="url" />
+				<label for="favIconUrl">Thumbnail: </label>
+				<input type="url" name="favIconUrl" id="favIconUrl" />
+				<input type="submit" value="Save" />
+			</form>
+			<button id="deleteItem">Delete</button>
+			<button id="closeDialog">Close</button>
+		</dialog>
+		<footer></footer>
+		<script src="nato.js" type="module"></script>
+		<script src="newTab.js" type="module"></script>
+	</body>
 </html>
