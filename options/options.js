@@ -6,11 +6,15 @@ const options = {};
 const statusSpan = document.querySelector("#status");
 /** @type {HTMLFormElement} */
 const optionsForm = document.querySelector("#optionsForm");
+const slider = optionsForm.natoChance;
+const sliderNumber = document.querySelector("#natoChanceNumber");
 
 storage.get(["options"]).then(({ options }) => {
-  const { hideDownloadShelfTime } = options ?? {};
-  // default to 1000 if undefined
+  const { hideDownloadShelfTime, natoChance } = options ?? {};
+
   optionsForm.hideDownloadShelfTime.value = hideDownloadShelfTime ?? 1000;
+  slider.value = natoChance ?? 0.2;
+  updateLabel();
 });
 
 optionsForm.addEventListener("change", (event) => {
@@ -31,6 +35,11 @@ optionsForm.addEventListener("change", (event) => {
     }
   }
 });
+
+slider.addEventListener("input", updateLabel);
+function updateLabel() {
+  sliderNumber.textContent = Math.round(slider.value * 100);
+}
 
 const bookmarksFileInput = document.querySelector("#bookmarksFile");
 bookmarksFileInput.addEventListener("change", (event) => {
