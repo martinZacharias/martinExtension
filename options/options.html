@@ -1,26 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Martin Extension Options</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Martin Extension Options</title>
-</head>
-
-<body>
-	<h3>Downloads</h3>
-	<form id="optionsForm" autocomplete="off">
-		<label for="hideDownloadShelfTime">Hide download shelf time (in ms):</label>
-		<input type="number" name="hideDownloadShelfTime" id="hideDownloadShelfTime" min="-1" step="1" />
-	</form>
-	<hr>
-	<h3>NewTab Bookmarks</h3>
-	<button id="importBookmarks">Import</button>
-	<button id="exportBookmarks">Export</button>
-	<input type="file" name="bookmarksFile" id="bookmarksFile" accept=".json" hidden>
-	<p id="status"></p>
-	<script src="options.js"></script>
-</body>
-
+  <body>
+    <h3>Options</h3>
+    <form id="optionsForm" autocomplete="off">
+      <fieldset>
+        <legend>Downloads</legend>
+        <label>
+          Hide download shelf time (in ms):
+          <input
+            type="number"
+            name="hideDownloadShelfTime"
+            id="hideDownloadShelfTime"
+            min="-1"
+            step="1"
+            required
+          />
+        </label>
+      </fieldset>
+    </form>
+    <h3>NewTab Bookmarks</h3>
+    <button id="importBookmarks">Import</button>
+    <button id="exportBookmarks">Export</button>
+    <input
+      type="file"
+      name="bookmarksFile"
+      id="bookmarksFile"
+      accept=".json"
+      hidden
+    />
+    <p id="status"></p>
+    <script src="options.js"></script>
+  </body>
 </html>
