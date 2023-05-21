@@ -41,8 +41,6 @@ function onGet(options) {
   }
 }
 
-function onChanged() {}
-
 export default {
   name: "options",
   init,
