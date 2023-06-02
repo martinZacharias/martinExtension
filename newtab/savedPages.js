@@ -103,16 +103,21 @@ function setConfirm(confirm) {
 }
 
 dialog.addEventListener("click", (event) => {
-	if (
-		event.offsetX < 0 ||
-		event.offsetY < 0 ||
-		event.offsetX > dialog.offsetWidth ||
-		event.offsetY > dialog.offsetHeight
-	)
+	if (event.offsetX < 0 || event.offsetY < 0 || event.offsetX > dialog.offsetWidth || event.offsetY > dialog.offsetHeight)
 		dialog.close();
 });
 
 //#endregion dialog
+
+document.addEventListener("keydown", (event) => {
+	const target = event.target;
+	if (["INPUT", "TEXTAREA"].includes(target.tagName) || target.isContentEditable) return;
+	const key = event.key;
+	if (key < "0" || key > "9") return;
+	const index = key === "0" ? 9 : parseInt(key) - 1;
+	if (section.children.length <= index) return;
+	section.children[index].click();
+});
 
 export default {
 	name: "pages",
