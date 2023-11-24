@@ -8,8 +8,8 @@ function init(store, parent) {
 	storage = store;
 }
 
-function onGet(data) {
-	currentPages = data;
+function onGet(entries) {
+	currentPages = entries?.pages ?? [];
 
 	for (const page of currentPages) {
 		const a = addPage(page);
@@ -19,7 +19,7 @@ function onGet(data) {
 
 function onChanged(newValue, _oldValue) {
 	section.replaceChildren();
-	onGet(newValue);
+	onGet({pages: newValue});
 }
 
 function addPage(page) {
@@ -120,7 +120,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 export default {
-	name: "pages",
+	stores: ["pages"],
 	init,
 	onGet,
 	onChanged,

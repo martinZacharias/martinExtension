@@ -1,11 +1,15 @@
+let storage;
 let parent;
 
-function init(element) {
+function init(store, element) {
+  storage = store;
   parent = element;
 }
 
-function onGet(options) {
-  if (Math.random() < (options.natoChance ?? 0.2)) {
+function onGet(entries) {
+  const natoChance = entries?.options?.natoChance ?? 0.2;
+  const natoStats = entries?.natoStats ?? { wins: 0, loses: 0 };
+  if (Math.random() < natoChance) {
     // prettier-ignore
     const alphabet = ["Alfa","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel","India","Juliett","Kilo","Lima","Mike","November","Oscar","Papa","Quebec","Romeo","Sierra","Tango","Uniform","Victor","Whiskey","Xray","Yankee","Zulu"];
     const index = Math.floor(Math.random() * alphabet.length);
@@ -31,9 +35,19 @@ function onGet(options) {
 
       const submitted = input.value.trim().toLowerCase();
       const correct = correctWord.toLowerCase();
-      const result = submitted === correct ? "✅" : "❌";
+
+      if (submitted === correct) {
+        form.append("✅");
+        natoStats.wins++;
+      } else {
+        form.append("❌");
+        natoStats.loses++;
+      }
+
+      storage.set({ natoStats });
       input.value = correctWord;
-      form.append(result);
+      const { wins, loses } = natoStats;
+      form.append(`${wins} - ${loses}`);
 
       form.classList.add("hidden");
       setTimeout(() => form.remove(), 1250);
@@ -42,7 +56,8 @@ function onGet(options) {
 }
 
 export default {
-  name: "options",
+  stores: ["options", "natoStats"],
   init,
   onGet,
+  onChanged: () => {},
 };

@@ -9,23 +9,22 @@ const footer = document.querySelector("footer");
 
 savedPages.init(storage, main);
 todo.init(storage, footer);
-nato.init(footer);
+nato.init(storage, footer);
 
-const components = new Map();
-components.set(todo.name, todo);
-components.set(savedPages.name, savedPages);
-components.set(nato.name, nato);
+const components = [todo, savedPages, nato];
+const map = new Map();
+for (const component of components) {
+  const { stores } = component;
+  for (const store of stores)
+    if (map.has(store)) map.get(store).push(component);
+    else map.set(store, [component]);
+}
+const storeP = storage.get(Array.from(map.keys()));
 
-storage.get(Array.from(components.keys())).then((entries) => {
-  for (const [key, value] of Object.entries(entries)) {
-    const component = components.get(key);
-    if ("onGet" in component) component.onGet(value);
-  }
-});
+components.forEach(({ onGet }) => storeP.then(onGet));
 
-storage.onChanged.addListener((changes, _) => {
-  for (const [key, { newValue, oldValue }] of Object.entries(changes)) {
-    const component = components.get(key);
-    if ("onChanged" in component) component.onChanged(newValue, oldValue);
-  }
+storage.onChanged.addListener((changes) => {
+  for (const [key, { oldValue, newValue }] of Object.entries(changes))
+    for (const component of map.get(key))
+      component.onChanged(newValue, oldValue);
 });

@@ -13,8 +13,8 @@ function init(store, parent) {
 	storage = store;
 }
 
-function onGet(data) {
-	currentTodos = data;
+function onGet(entries) {
+	currentTodos = entries?.todo ?? [];
 	for (const entry of currentTodos) {
 		addTodo(entry);
 	}
@@ -23,7 +23,7 @@ function onGet(data) {
 function onChanged(newValue, _oldValue) {
 	if (newValue.toString() == currentTodos.toString()) return;
 	ul.replaceChildren();
-	onGet(newValue);
+	onGet({todo: newValue});
 }
 
 function addTodo(content) {
@@ -54,7 +54,7 @@ function saveTodos() {
 }
 
 export default {
-	name: "todo",
+	stores: ["todo"],
 	init,
 	onGet,
 	onChanged,
