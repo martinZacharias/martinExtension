@@ -1,4 +1,4 @@
-import { browser, storage } from "./browser";
+import { browser, storage } from "./browser.js";
 
 // load options and set up change listener
 let hideDownloadShelfTime = 1000;
@@ -27,6 +27,12 @@ browser.runtime.onInstalled.addListener(() => {
     title: "Design mode",
     contexts: ["page", "editable"],
   });
+
+  browser.contextMenus.create({
+    id: "copyLinkText",
+    title: "Copy link text",
+    contexts: ["link"],
+  });
 });
 
 browser.contextMenus.onClicked.addListener(async (info, tab) => {
@@ -43,11 +49,18 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
       browser.scripting.executeScript({
         target: { tabId: tab.id },
         func: () => {
-          if (document.designMode === "on") {
-            document.designMode = "off";
-          } else {
-            document.designMode = "on";
-          }
+          document.designMode = document.designMode === "on" ? "off" : "on";
+        },
+      });
+      break;
+
+    case "copyLinkText":
+      browser.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: () => {
+          const active = document.activeElement;
+          const text = active.textContent.trim();
+          navigator.clipboard.writeText(text);
         },
       });
       break;
