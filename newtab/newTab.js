@@ -1,15 +1,14 @@
 import savedPages from "./savedPages.js";
 import nato from "./nato.js";
 import todo from "./todo.js";
-
-const storage = chrome.storage.local;
+import { storage } from "../browser.js";
 
 const main = document.querySelector("main");
 const footer = document.querySelector("footer");
 
-savedPages.init(storage, main);
-todo.init(storage, footer);
-nato.init(storage, footer);
+savedPages.init(main);
+todo.init(footer);
+nato.init(footer);
 
 const components = [todo, savedPages, nato];
 const map = new Map();

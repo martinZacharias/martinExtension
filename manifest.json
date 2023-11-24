@@ -32,7 +32,8 @@
     "activeTab",
     "downloads",
     "downloads.shelf",
-    "contextMenus"
+    "contextMenus",
+    "scripting"
   ],
   "options_page": "options/options.html"
 }

@@ -29,6 +29,7 @@ section {
 
 a {
   color: white;
+  text-decoration: none;
 }
 
 form.grid {

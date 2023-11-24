@@ -1,6 +1,7 @@
+import { storage } from "../browser.js";
+
 addEventListener("submit", (event) => event.preventDefault());
 
-const storage = chrome.storage.local;
 const options = {};
 
 const statusSpan = document.querySelector("#status");

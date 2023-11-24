@@ -1,8 +1,9 @@
-let storage;
+import alphabet from "./alphabet.js";
+import { storage } from "../browser.js";
+
 let parent;
 
-function init(store, element) {
-  storage = store;
+function init(element) {
   parent = element;
 }
 
@@ -10,8 +11,6 @@ function onGet(entries) {
   const natoChance = entries?.options?.natoChance ?? 0.2;
   const natoStats = entries?.natoStats ?? { wins: 0, loses: 0 };
   if (Math.random() < natoChance) {
-    // prettier-ignore
-    const alphabet = ["Alfa","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel","India","Juliett","Kilo","Lima","Mike","November","Oscar","Papa","Quebec","Romeo","Sierra","Tango","Uniform","Victor","Whiskey","Xray","Yankee","Zulu"];
     const index = Math.floor(Math.random() * alphabet.length);
     const correctWord = alphabet[index];
 

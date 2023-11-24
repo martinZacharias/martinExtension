@@ -1,5 +1,6 @@
+import { browser, storage } from "./browser";
+
 // load options and set up change listener
-const storage = chrome.storage.local;
 let hideDownloadShelfTime = 1000;
 
 storage.get("options", ({ options }) => {
@@ -14,32 +15,32 @@ storage.onChanged.addListener((changes, area) => {
 });
 
 // add context menu entries on install
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
+browser.runtime.onInstalled.addListener(() => {
+  browser.contextMenus.create({
     id: "saveFile",
     title: "Save",
     contexts: ["image", "video", "audio"],
   });
 
-  chrome.contextMenus.create({
+  browser.contextMenus.create({
     id: "toggleDesignMode",
     title: "Design mode",
     contexts: ["page", "editable"],
   });
 });
 
-chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+browser.contextMenus.onClicked.addListener(async (info, tab) => {
   switch (info.menuItemId) {
     case "saveFile":
-      chrome.downloads.download({ url: info.srcUrl }, (downloadId) => {
+      browser.downloads.download({ url: info.srcUrl }, (downloadId) => {
         if (info.pageUrl === info.srcUrl) {
-          chrome.tabs.remove(tab.id);
+          browser.tabs.remove(tab.id);
         }
       });
       break;
 
     case "toggleDesignMode":
-      chrome.scripting.executeScript({
+      browser.scripting.executeScript({
         target: { tabId: tab.id },
         func: () => {
           if (document.designMode === "on") {
@@ -57,14 +58,14 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 });
 
 // hide download shelf when all downloads done
-chrome.downloads.onChanged.addListener((downloadDelta) => {
+browser.downloads.onChanged.addListener((downloadDelta) => {
   //query active downloads when state changes
   if (hideDownloadShelfTime >= 0 && downloadDelta.state) {
-    chrome.downloads.search({ state: "in_progress" }, (results) => {
+    browser.downloads.search({ state: "in_progress" }, (results) => {
       if (results.length === 0) {
         setTimeout(() => {
-          chrome.downloads.setShelfEnabled(false);
-          chrome.downloads.setShelfEnabled(true);
+          browser.downloads.setShelfEnabled(false);
+          browser.downloads.setShelfEnabled(true);
         }, hideDownloadShelfTime);
       }
     });
